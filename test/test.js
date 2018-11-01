@@ -1,11 +1,25 @@
 window.onload = function(event) {
-  var testInput = new MonitoredInput({ id: "test" });
+  (() => {
+    var testInput = new MonitoredInput({ id: "test" });
 
-  var elementToInteractWith = document.querySelector("[data-test=test]");
+    var elementToInteractWith = document.querySelector("[data-test=test]");
 
-  (elementToInteractWith ? passTest : failTest)(
-    "it gives me something to interact with"
-  );
+    (elementToInteractWith ? passTest : failTest)(
+      "it gives me something to interact with"
+    );
+  })();
+
+  (() => {
+    var testInput = new MonitoredInput({ id: "test" });
+
+    var elementToInteractWith = document.querySelector("[data-test=test]");
+
+    elementToInteractWith.value = "a value";
+
+    (elementToInteractWith.value === "a value" ? passTest : failTest)(
+      "it accepts a value"
+    );
+  })();
 
   failTest(
     "present an input field to the user that calls a monitor function when the input value changes"
