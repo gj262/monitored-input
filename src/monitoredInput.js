@@ -11,5 +11,14 @@ class MonitoredInput {
       "<div>This is where the input will be: <input type=text data-test=" +
       options.id +
       " /></div>";
+    this.inputElement = attachTo.querySelector("input");
+    this.inputElement.oninput = this.onInput.bind(this);
+    this.options = options;
+  }
+
+  onInput(event) {
+    if (this.options.onInput) {
+      this.options.onInput(event.target.value);
+    }
   }
 }

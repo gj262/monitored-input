@@ -21,9 +21,23 @@ window.onload = function(event) {
     );
   })();
 
-  failTest(
-    "present an input field to the user that calls a monitor function when the input value changes"
-  );
+  (() => {
+    var watch;
+    var testInput = new MonitoredInput({
+      id: "test",
+      onInput: newValue => {
+        watch = newValue;
+      }
+    });
+
+    var elementToInteractWith = document.querySelector("[data-test=test]");
+
+    elementToInteractWith.value = "a value";
+    var event = new Event("input");
+    elementToInteractWith.dispatchEvent(event);
+
+    (watch === "a value" ? passTest : failTest)("it fires with the value");
+  })();
 };
 
 function passTest(name) {
